@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KINETIC | Step Into The Future</title>
+    <style>
+        :root {
+            --primary: #ff4d00;
+            --dark: #111;
+            --light: #f4f4f4;
+            --gray: #333;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Courier New', Courier, monospace; /* Tech/Industrial feel */
+        }
+
+        body {
+            background-color: var(--dark);
+            color: var(--light);
+            overflow-x: hidden;
+        }
+
+        /* --- NAVIGATION --- */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2rem 5%;
+            position: fixed;
+            width: 100%;
+            z-index: 100;
+            background: rgba(17, 17, 17, 0.8);
+            backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            letter-spacing: 5px;
+            color: var(--primary);
+        }
+
+        .nav-links a {
+            color: var(--light);
+            text-decoration: none;
+            margin-left: 2rem;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-text {
+            z-index: 2;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 8vw;
+            line-height: 0.9;
+            text-transform: uppercase;
+            mix-blend-mode: difference;
+        }
+
+        .hero-shoe {
+            position: absolute;
+            width: 60vw;
+            max-width: 800px;
+            z-index: 1;
+            filter: drop-shadow(0 20px 50px rgba(255, 77, 0, 0.3));
+            animation: float 6s ease-in-out infinite;
+            transition: transform 0.5s ease;
+        }
+
+        .hero-shoe:hover {
+            transform: scale(1.1) rotate(-5deg);
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* --- MOOD SELECTOR (Unique Idea) --- */
+        .mood-section {
+            padding: 5rem 10%;
+            background: var(--light);
+            color: var(--dark);
+        }
+
+        .section-title {
+            font-size: 3rem;
+            margin-bottom: 3rem;
+            text-transform: uppercase;
+        }
+
+        .mood-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .mood-card {
+            background: var(--dark);
+            color: var(--light);
+            padding: 2rem;
+            cursor: pointer;
+            transition: 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mood-card:hover {
+            background: var(--primary);
+            transform: translateY(-10px);
+        }
+
+        .mood-card h3 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .mood-card p {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* --- THE "BUILD" SECTION (Interactive) --- */
+        .build-section {
+            padding: 5rem 10%;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .shoe-preview {
+            width: 400px;
+            height: 400px;
+            background: #222;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .shoe-preview img {
+            width: 80%;
+            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.5));
+            transition: filter 0.3s;
+        }
+
+        .controls {
+            flex: 1;
+            min-width: 300px;
+            padding-left: 3rem;
+        }
+
+        .control-group {
+            margin-bottom: 2rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+
+        input[type="range"] {
+            width: 100%;
+            accent-color: var(--primary);
+        }
+
+        .price-tag {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-top: 2rem;
+        }
+
+        .btn-buy {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 1rem 3rem;
+            font-size: 1.2rem;
+            cursor: pointer;
+            margin-top: 2rem;
+            text-transform: uppercase;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .btn-buy:hover {
+            background: white;
+            color: var(--dark);
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            padding: 3rem 5%;
+            text-align: center;
+            border-top: 1px solid #333;
+            font-size: 0.8rem;
+            opacity: 0.6;
+        }
+
+        /* --- UTILS --- */
+        .hidden { display: none; }
+        
+        /* Glitch effect for text */
+        .glitch {
+            position: relative;
+        }
+        .glitch::before, .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        .glitch::before {
+            left: 2px;
+            text-shadow: -1px 0 red;
+            clip: rect(24px, 550px, 90px, 0);
+            animation: glitch-anim-2 3s infinite linear alternate-reverse;
+        }
+        .glitch::after {
+            left: -2px;
+            text-shadow: -1px 0 blue;
+            clip: rect(85px, 550px, 140px, 0);
+            animation: glitch-anim 2.5s infinite linear alternate-reverse;
+        }
+
+        @keyframes glitch-anim {
+            0% { clip: rect(10px, 9999px, 30px, 0); }
+            20% { clip: rect(80px, 9999px, 100px, 0); }
+            100% { clip: rect(10px, 9999px, 140px, 0); }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">KINETIC</div>
+        <div class="nav-links">
+            <a href="#mood">Moods</a>
+            <a href="#build">Customize</a>
+            <a href="#about">About</a>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <div class="hero-text">
+            <h1 class="glitch" data-text="DEFY GRAVITY">DEFY GRAVITY</h1>
+            <p style="margin-top: 1rem; letter-spacing: 2px;">THE FUTURE OF FOOTWEAR IS HERE</p>
+        </div>
+        <!-- Using a transparent shoe PNG from a placeholder source -->
+        <img src="./photo-1549298916-b41d501d3772.avif" alt="Kinetic Shoe" class="hero-shoe" id="heroImg">
+    </section>
+
+    <!-- MOOD SECTION -->
+    <section class="mood-section" id="mood">
+        <h2 class="section-title">Choose Your Vibe</h2>
+        <div class="mood-grid">
+            <div class="mood-card" onclick="changeShoeColor('#ff4d00')">
+                <h3>CHAOS</h3>
+                <p>High energy. Neon accents. For the night owls.</p>
+            </div>
+            <div class="mood-card" onclick="changeShoeColor('#ffffff')">
+                <h3>ZEN</h3>
+                <p>Minimalist. White leather. Pure focus.</p>
+            </div>
+            <div class="mood-card" onclick="changeShoeColor('#000000')">
+                <h3>VOID</h3>
+                <p>Stealth mode. Matte black. Invisible to the world.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CUSTOMIZATION SECTION -->
+    <section class="build-section" id="build">
+        <div class="shoe-preview">
+            <img src="./photo-1542291026-7eec264c27ff.avif" alt="Custom Shoe" id="customImg">
+        </div>
+        <div class="controls">
+            <h2>Build Your Kinetic</h2>
+            <br>
+            
+            <div class="control-group">
+                <label>Material Texture</label>
+                <input type="range" min="1" max="100" value="50" oninput="updateTexture(this.value)">
+            </div>
+
+            <div class="control-group">
+                <label>Gravity Defiance Level</label>
+                <input type="range" min="1" max="100" value="50" oninput="updateGravity(this.value)">
+            </div>
+
+            <div class="control-group">
+                <label>Price</label>
+                <div class="price-tag" id="priceDisplay">$120</div>
+            </div>
+
+            <button class="btn-buy" onclick="addToCart()">Initialize Order</button>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2023 KINETIC FOOTWEAR. DESIGNED FOR THE UNBORN.</p>
+    </footer>
+
+    <script>
+        // Unique Idea 1: Dynamic Color Changing
+        function changeShoeColor(color) {
+            const img = document.getElementById('customImg');
+            // We use a filter to tint the image since we don't have 3 separate images
+            img.style.filter = `drop-shadow(0 10px 20px rgba(0,0,0,0.5)) hue-rotate(${getHueFromColor(color)})`;
+            
+            // Update Hero Image too
+            const heroImg = document.getElementById('heroImg');
+            heroImg.style.filter = `drop-shadow(0 20px 50px ${color}80) hue-rotate(${getHueFromColor(color)})`;
+        }
+
+        // Helper to approximate hue rotation based on hex color
+        function getHueFromColor(hex) {
+            if(hex === '#ff4d00') return 0;
+            if(hex === '#ffffff') return 0; // White stays white
+            if(hex === '#000000') return 0; // Black stays black
+            return 0;
+        }
+
+        // Unique Idea 2: Interactive Price Calculator
+        function updateTexture(val) {
+            const img = document.getElementById('customImg');
+            // Simulate texture change by adjusting brightness/contrast
+            img.style.filter = `drop-shadow(0 10px 20px rgba(0,0,0,0.5)) brightness(${100 + val/2}%) contrast(${100 + val/2}%)`;
+        }
+
+        function updateGravity(val) {
+            const img = document.getElementById('customImg');
+            // Simulate "floating" higher based on slider
+            img.style.transform = `translateY(-${val}px)`;
+            
+            // Update Price
+            const basePrice = 120;
+            const extra = val * 2;
+            document.getElementById('priceDisplay').innerText = '$' + (basePrice + extra);
+        }
+
+        function addToCart() {
+            const btn = document.querySelector('.btn-buy');
+            const originalText = btn.innerText;
+            
+            btn.innerText = "PROCESSING...";
+            btn.style.background = "#fff";
+            btn.style.color = "#000";
+
+            setTimeout(() => {
+                btn.innerText = "ORDER INITIATED";
+                btn.style.background = "#00ff00";
+                btn.style.color = "#000";
+                
+                setTimeout(() => {
+                    btn.innerText = originalText;
+                    btn.style.background = "#ff4d00";
+                    btn.style.color = "#fff";
+                }, 2000);
+            }, 1500);
+        }
+    </script>
+</body>
+</html>
